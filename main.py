@@ -83,6 +83,10 @@ insult_commands = Tree(
     },
 )
 
+@insult_commands.register_keyword("decorated", "A function added via a decorator")
+def decorated_function():
+    print("I am decorated")
+
 base_commands.add_keyword('insult', insult_commands)
 
 while True:

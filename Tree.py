@@ -70,6 +70,21 @@ class Tree:
         command = self.convert_command(command)
         self.regex[regex] = command
 
+    # function decorators to dynamically add existing functions
+    def register_keyword(self, keyword, description=None):
+        def decorator(func):
+            command = Command(func, description)
+            self.add_keyword(keyword, command)
+            return func
+        return decorator
+
+    def register_regex(self, regex, description=None):
+        def decorator(func):
+            command = Command(func, description)
+            self.add_regex(regex, command)
+            return func
+        return decorator
+
     # convert intro appropriate object, otherwise raise TypeError
     def convert_command(self, command):
         if isinstance(command, Command):
