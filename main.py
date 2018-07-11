@@ -47,6 +47,7 @@ def parse_args(tree, args):
     else:
         return branch
 
+# creating root of tree
 base_commands = Tree(
     regex={
         r"<@\d+>": Command(
@@ -56,6 +57,7 @@ base_commands = Tree(
     },
 )
 
+# creating an indepedent subtree
 insult_commands = Tree(
     description="Insult various people",
     empty=Command(
@@ -83,12 +85,15 @@ insult_commands = Tree(
     },
 )
 
+# adds a keyword via decorator
 @insult_commands.register_keyword("decorated", "A function added via a decorator")
 def decorated_function():
     print("I am decorated")
 
+# adding subtree to base
 base_commands.add_keyword('insult', insult_commands)
 
+# cli to test commands
 while True:
     command = input('Enter command: ')
     func = parse_command(base_commands, command)
